@@ -1925,14 +1925,36 @@
 
 
         function deleteMaterial(id) {
-            if (confirm('คุณแน่ใจหรือไม่ที่จะลบวัตถุดิบนี้?')) {
-                materials = materials.filter(m => m.id !== id);
-                saveData();
-                renderMaterialsTable();
-                updateLowStockAlert();
-                showAlert('✅ ลบวัตถุดิบเรียบร้อย!', 'success');
-            }
+            const material = materials.find(m => m.id === id);
+            if (!material) return;
+
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: `คุณต้องการลบวัตถุดิบ "${material.name}" หรือไม่?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ลบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    materials = materials.filter(m => m.id !== id);
+                    saveData();
+                    renderMaterialsTable();
+                    updateLowStockAlert();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'ลบวัตถุดิบเรียบร้อย!',
+                        text: `"${material.name}" ถูกลบออกจากระบบแล้ว`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            });
         }
+
 
         function addStock(id) {
             const material = materials.find(m => m.id === id);
