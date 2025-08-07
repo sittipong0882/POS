@@ -122,6 +122,33 @@
             margin-bottom: 30px;
         }
 
+        /* สไตล์ปุ่มลบ */
+        .btn-delete {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete:hover {
+            background-color: #cc0000;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete i {
+            font-size: 0.8rem;
+        }
+
+        /* ไอคอน Font Awesome */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
         .stat-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -855,16 +882,12 @@
                     <input type="text" class="form-input" name="category" required
                         placeholder="เช่น ชา, กาแฟ, น้ำผลไม้">
                 </div>
-
-
-
                 <button type="submit" class="btn btn-success" style="width: 100%; font-size: 1.1rem;">
                     💾 บันทึกสินค้า
                 </button>
             </form>
         </div>
     </div>
-
 
     <!-- Add Material Modal -->
     <div id="addMaterialModal" class="modal">
@@ -1442,49 +1465,110 @@
         }
 
         function updateRecentSales() {
-            const recent = sales.slice(-10).reverse();
+            const recent = sales.slice(-10).reverse(); // แสดง 10 รายการล่าสุด เรียงจากใหม่ไปเก่า
             const container = document.getElementById('recentSales');
 
             if (recent.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">📝</div>
-                        <p>ยังไม่มีประวัติการขาย</p>
-                    </div>
-                `;
+            <div class="empty-state">
+                <div class="icon">📝</div>
+                <p>ยังไม่มีประวัติการขาย</p>
+            </div>
+        `;
                 return;
             }
 
             const html = `
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>วันที่/เวลา</th>
-                                <th>สินค้า</th>
-                                <th>จำนวน</th>
-                                <th>ราคา</th>
-                                <th>รวม</th>
-                                <th>กำไร</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${recent.map(sale => `
-                                <tr>
-                                    <td>${new Date(sale.timestamp || sale.date).toLocaleString('th-TH')}</td>
-                                    <td style="font-weight: 600;">${sale.productName}</td>
-                                    <td style="text-align: center;">${sale.quantity}</td>
-                                    <td style="text-align: right;">฿${sale.price.toLocaleString()}</td>
-                                    <td style="text-align: right; font-weight: 600;">฿${(sale.quantity * sale.price).toLocaleString()}</td>
-                                    <td style="text-align: right; color: #28a745; font-weight: 600;">฿${(sale.quantity * (sale.price - sale.cost)).toLocaleString()}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>วันที่/เวลา</th>
+                        <th>สินค้า</th>
+                        <th>จำนวน</th>
+                        <th>ราคา</th>
+                        <th>รวม</th>
+                        <th>กำไร</th>
+                        <th>จัดการ</th> <!-- คอลัมน์ใหม่สำหรับปุ่มลบ -->
+                    </tr>
+                </thead>
+                <tbody>
+                    ${recent.map(sale => `
+                        <tr>
+                            <td>${new Date(sale.timestamp || sale.date).toLocaleString('th-TH')}</td>
+                            <td style="font-weight: 600;">${sale.productName}</td>
+                            <td style="text-align: center;">${sale.quantity}</td>
+                            <td style="text-align: right;">฿${sale.price.toLocaleString()}</td>
+                            <td style="text-align: right;">฿${(sale.price * sale.quantity).toLocaleString()}</td>
+                            <td style="text-align: right; color: #28a745;">฿${((sale.price - sale.cost) * sale.quantity).toLocaleString()}</td>
+                            <td style="text-align: center;">
+                                <button class="btn-delete" onclick="deleteSale(${sale.id})" title="ลบรายการนี้">
+                                    <i class="fas fa-trash-alt"></i> ลบ
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
             container.innerHTML = html;
+        }
+
+        async function deleteSale(saleId) {
+            // ใช้ SweetAlert2 สำหรับการยืนยันการลบ
+            const { isConfirmed } = await Swal.fire({
+                title: 'ยืนยันการลบรายการ',
+                text: 'คุณแน่ใจหรือไม่ว่าต้องการลบรายการขายนี้?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'ลบ',
+                cancelButtonText: 'ยกเลิก'
+            });
+
+            if (!isConfirmed) return;
+
+            try {
+                // ค้นหารายการที่ต้องการลบ
+                const index = sales.findIndex(sale => sale.id === saleId);
+                if (index !== -1) {
+                    // คืนสต็อกสินค้า
+                    const deletedSale = sales[index];
+                    const product = products.find(p => p.id === deletedSale.productId);
+                    if (product) {
+                        product.stock += deletedSale.quantity;
+                    }
+
+                    // ลบรายการออกจากอาร์เรย์
+                    sales.splice(index, 1);
+
+                    // บันทึกการเปลี่ยนแปลง
+                    saveData();
+
+                    // อัปเดต UI
+                    updateRecentSales();
+                    updateDashboard();
+                    renderProducts();
+
+                    // แจ้งเตือนเมื่อลบสำเร็จ
+                    await Swal.fire({
+                        title: 'สำเร็จ!',
+                        text: 'ลบรายการขายเรียบร้อยแล้ว',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            } catch (error) {
+                console.error('Error deleting sale:', error);
+                Swal.fire({
+                    title: 'เกิดข้อผิดพลาด!',
+                    text: 'ไม่สามารถลบรายการได้',
+                    icon: 'error'
+                });
+            }
         }
 
         function renderProductsTable() {
@@ -1673,27 +1757,83 @@
             document.getElementById(modalId).style.display = 'none';
         }
 
-        function addProduct(event) {
+        async function addProduct(event) {
             event.preventDefault();
-            const formData = new FormData(event.target);
-            const newProduct = {
-                id: Math.max(...products.map(p => p.id), 0) + 1,
-                name: formData.get('name'),
-                price: parseFloat(formData.get('price')),
-                cost: parseFloat(formData.get('cost')),
-                stock: parseInt(formData.get('stock')),
-                category: formData.get('category')
-            };
+            const form = event.target;
+            const formData = new FormData(form);
 
-            products.push(newProduct);
-            saveData();
-            renderProducts();
-            renderProductsTable();
-            closeModal('addProductModal');
-            event.target.reset();
-            showAlert('✅ เพิ่มสินค้าเรียบร้อย!', 'success');
+            try {
+                // ตรวจสอบข้อมูลก่อนบันทึก
+                const name = formData.get('name').trim();
+                const price = parseFloat(formData.get('price'));
+                const cost = parseFloat(formData.get('cost'));
+                const stock = parseInt(formData.get('stock'));
+                const category = formData.get('category').trim();
+
+                if (!name || isNaN(price) || isNaN(cost) || isNaN(stock)) {
+                    throw new Error('กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง');
+                }
+
+                if (price <= 0 || cost <= 0 || stock < 0) {
+                    throw new Error('ราคาและจำนวนสต็อกต้องเป็นตัวเลขบวก');
+                }
+
+                // สร้าง ID ใหม่
+                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+
+                // สร้าง object สินค้าใหม่
+                const newProduct = {
+                    id: newId,
+                    name,
+                    price,
+                    cost,
+                    stock,
+                    category
+                };
+
+                // เพิ่มสินค้าใหม่
+                products.push(newProduct);
+
+                // บันทึกข้อมูล
+                saveData();
+
+                // อัพเดท UI ทั้งหมดที่เกี่ยวข้อง
+                updateAllProductViews();
+
+                // ปิด modal และรีเซ็ตฟอร์ม
+                closeModal('addProductModal');
+                form.reset();
+
+                // แจ้งเตือนสำเร็จ
+                await Swal.fire({
+                    title: 'สำเร็จ!',
+                    text: 'เพิ่มสินค้าเรียบร้อย',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+            } catch (error) {
+                // แจ้งเตือนข้อผิดพลาด
+                await Swal.fire({
+                    title: 'เกิดข้อผิดพลาด',
+                    text: error.message,
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง'
+                });
+                console.error('Error adding product:', error);
+            }
         }
 
+        // ฟังก์ชันสำหรับอัพเดททุกส่วนที่แสดงสินค้า
+        function updateAllProductViews() {
+            renderProducts();      // อัพเดทหน้าขาย
+            renderProductsTable(); // อัพเดทตารางจัดการสินค้า
+            updateDashboard();     // อัพเดทแดชบอร์ด (ถ้ามีผลต่อข้อมูล)
+
+            // แจ้งเตือนการเปลี่ยนแปลง (สำหรับส่วนอื่นที่อาจต้องการอัพเดท)
+            window.dispatchEvent(new CustomEvent('products-updated'));
+        }
         function addMaterial(event) {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -1755,16 +1895,34 @@
         }
 
         function deleteProduct(id) {
-            if (confirm('คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?')) {
-                products = products.filter(p => p.id !== id);
-                cart = cart.filter(item => item.id !== id);
-                saveData();
-                renderProducts();
-                renderProductsTable();
-                updateCartDisplay();
-                showAlert('✅ ลบสินค้าเรียบร้อย!', 'success');
-            }
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "คุณต้องการลบสินค้านี้ใช่หรือไม่?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, ลบเลย!',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    products = products.filter(p => p.id !== id);
+                    cart = cart.filter(item => item.id !== id);
+                    saveData();
+                    renderProducts();
+                    renderProductsTable();
+                    updateCartDisplay();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'ลบสินค้าเรียบร้อย!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
         }
+
 
         function deleteMaterial(id) {
             if (confirm('คุณแน่ใจหรือไม่ที่จะลบวัตถุดิบนี้?')) {
@@ -1777,32 +1935,88 @@
         }
 
         function addStock(id) {
-            const quantity = prompt('ระบุจำนวนที่ต้องการเพิ่ม:');
-            if (quantity && !isNaN(quantity) && parseInt(quantity) > 0) {
-                const material = materials.find(m => m.id === id);
-                if (material) {
-                    material.stock += parseInt(quantity);
+            const material = materials.find(m => m.id === id);
+            if (!material) return;
+
+            Swal.fire({
+                title: `เพิ่มสต็อกให้กับ "${material.name}"`,
+                input: 'number',
+                inputLabel: 'ระบุจำนวนที่ต้องการเพิ่ม',
+                inputAttributes: {
+                    min: 1,
+                    step: 1
+                },
+                inputPlaceholder: 'เช่น 10',
+                showCancelButton: true,
+                confirmButtonText: 'เพิ่ม',
+                cancelButtonText: 'ยกเลิก',
+                preConfirm: (value) => {
+                    if (!value || isNaN(value) || parseInt(value) <= 0) {
+                        Swal.showValidationMessage('กรุณากรอกจำนวนที่ถูกต้อง (มากกว่า 0)');
+                    }
+                    return value;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const quantity = parseInt(result.value);
+                    material.stock += quantity;
                     saveData();
                     renderMaterialsTable();
                     updateLowStockAlert();
-                    showAlert('✅ เพิ่มสต็อกเรียบร้อย!', 'success');
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'เพิ่มสต็อกเรียบร้อย!',
+                        text: `เพิ่ม ${quantity} ชิ้นให้กับ "${material.name}"`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                 }
-            }
+            });
         }
+
 
         function editMaterial(id) {
             const material = materials.find(m => m.id === id);
             if (!material) return;
 
-            const newStock = prompt(`แก้ไขจำนวนสต็อก ${material.name} (ปัจจุบัน: ${material.stock} ${material.unit}):`, material.stock);
-            if (newStock && !isNaN(newStock) && parseInt(newStock) >= 0) {
-                material.stock = parseInt(newStock);
-                saveData();
-                renderMaterialsTable();
-                updateLowStockAlert();
-                showAlert('✅ อัปเดตสต็อกเรียบร้อย!', 'success');
-            }
+            Swal.fire({
+                title: `แก้ไขจำนวนสต็อก "${material.name}"`,
+                input: 'number',
+                inputLabel: `จำนวนปัจจุบัน: ${material.stock} ${material.unit}`,
+                inputValue: material.stock,
+                inputAttributes: {
+                    min: 0,
+                    step: 1
+                },
+                showCancelButton: true,
+                confirmButtonText: 'อัปเดต',
+                cancelButtonText: 'ยกเลิก',
+                preConfirm: (value) => {
+                    if (value === '' || isNaN(value) || parseInt(value) < 0) {
+                        Swal.showValidationMessage('กรุณากรอกจำนวนที่ถูกต้อง (0 ขึ้นไป)');
+                    }
+                    return value;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const newStock = parseInt(result.value);
+                    material.stock = newStock;
+                    saveData();
+                    renderMaterialsTable();
+                    updateLowStockAlert();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'อัปเดตสต็อกเรียบร้อย!',
+                        text: `จำนวนใหม่ของ "${material.name}" คือ ${newStock} ${material.unit}`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            });
         }
+
 
         function showAlert(message, type) {
             const alertDiv = document.createElement('div');
