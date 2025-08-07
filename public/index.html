@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,20 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -31,10 +32,10 @@
             padding: 30px;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .header h1 {
             font-size: 2.5rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -42,7 +43,7 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
         }
-        
+
         .nav-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -51,7 +52,7 @@
             justify-content: center;
             padding: 0 20px;
         }
-        
+
         .nav-tab {
             padding: 15px 25px;
             background: rgba(255, 255, 255, 0.9);
@@ -61,72 +62,79 @@
             transition: all 0.3s ease;
             font-weight: 600;
             font-size: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border: 2px solid transparent;
             color: #333;
         }
-        
+
         .nav-tab.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
         }
-        
+
         .nav-tab:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
-        
+
         .tab-content {
             display: none;
         }
-        
+
         .tab-content.active {
             display: block;
             animation: fadeIn 0.5s ease;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
         }
-        
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .stat-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
@@ -136,12 +144,12 @@
             height: 4px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .stat-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
-        
+
         .stat-value {
             font-size: 3rem;
             font-weight: bold;
@@ -150,33 +158,33 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .stat-label {
             color: #666;
             font-size: 1.2rem;
             font-weight: 500;
         }
-        
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .product-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        
+
         .product-card::before {
             content: '';
             position: absolute;
@@ -186,19 +194,19 @@
             height: 4px;
             background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
         }
-        
+
         .product-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
-        
+
         .product-name {
             font-size: 1.4rem;
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
         }
-        
+
         .product-category {
             color: #666;
             font-size: 1rem;
@@ -208,7 +216,7 @@
             border-radius: 20px;
             display: inline-block;
         }
-        
+
         .product-price {
             font-size: 2rem;
             font-weight: bold;
@@ -217,13 +225,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .product-stock {
             color: #666;
             margin-bottom: 20px;
             font-weight: 500;
         }
-        
+
         .btn {
             padding: 15px 30px;
             border: none;
@@ -238,7 +246,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .btn::before {
             content: '';
             position: absolute;
@@ -246,49 +254,49 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s;
         }
-        
+
         .btn:hover::before {
             left: 100%;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
-        
+
         .btn-success {
             background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
             color: white;
             box-shadow: 0 8px 25px rgba(86, 204, 242, 0.3);
         }
-        
+
         .btn-danger {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
             color: white;
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
-        
+
         .btn-warning {
             background: linear-gradient(135deg, #feca57 0%, #ff9f43 100%);
             color: white;
             box-shadow: 0 8px 25px rgba(254, 202, 87, 0.3);
         }
-        
+
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
-        
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
-        
+
         .cart {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -296,35 +304,35 @@
             padding: 30px;
             position: sticky;
             top: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .cart h3 {
             margin-bottom: 20px;
             color: #333;
             font-size: 1.5rem;
             text-align: center;
         }
-        
+
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
-        
+
         .cart-item:last-child {
             border-bottom: none;
         }
-        
+
         .quantity-controls {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .quantity-btn {
             width: 35px;
             height: 35px;
@@ -339,16 +347,16 @@
             transition: all 0.3s ease;
             font-weight: bold;
         }
-        
+
         .quantity-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
-        
+
         .form-group {
             margin-bottom: 25px;
         }
-        
+
         .form-label {
             display: block;
             margin-bottom: 10px;
@@ -356,7 +364,7 @@
             color: #333;
             font-size: 1.1rem;
         }
-        
+
         .form-input {
             width: 100%;
             padding: 15px 20px;
@@ -364,48 +372,48 @@
             border-radius: 15px;
             font-size: 16px;
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.8);
         }
-        
+
         .form-input:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
             background: white;
         }
-        
+
         .table-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .table {
             width: 100%;
             border-collapse: collapse;
         }
-        
+
         .table th,
         .table td {
             padding: 20px;
             text-align: left;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
-        
+
         .table th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             font-weight: 600;
             font-size: 1.1rem;
         }
-        
+
         .table tr:hover {
             background: rgba(102, 126, 234, 0.05);
         }
-        
+
         .alert {
             padding: 20px 25px;
             border-radius: 15px;
@@ -415,7 +423,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .alert::before {
             content: '';
             position: absolute;
@@ -424,25 +432,25 @@
             right: 0;
             height: 4px;
         }
-        
+
         .alert-success {
             background: rgba(40, 167, 69, 0.1);
             color: #155724;
         }
-        
+
         .alert-success::before {
             background: #28a745;
         }
-        
+
         .alert-danger {
             background: rgba(220, 53, 69, 0.1);
             color: #721c24;
         }
-        
+
         .alert-danger::before {
             background: #dc3545;
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -451,10 +459,10 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
         }
-        
+
         .modal-content {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -463,16 +471,23 @@
             border-radius: 25px;
             width: 90%;
             max-width: 600px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             animation: modalSlideIn 0.3s ease;
         }
-        
+
         @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .close {
             color: #aaa;
             float: right;
@@ -481,11 +496,11 @@
             cursor: pointer;
             transition: color 0.3s ease;
         }
-        
+
         .close:hover {
             color: #667eea;
         }
-        
+
         .loading {
             display: inline-block;
             width: 25px;
@@ -495,25 +510,30 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .empty-state {
             text-align: center;
             color: #666;
             padding: 60px 20px;
             font-size: 1.1rem;
         }
-        
+
         .empty-state .icon {
             font-size: 4rem;
             margin-bottom: 20px;
             opacity: 0.5;
         }
-        
+
         .status-badge {
             padding: 6px 12px;
             border-radius: 20px;
@@ -522,22 +542,22 @@
             text-align: center;
             display: inline-block;
         }
-        
+
         .status-low {
             background: rgba(255, 107, 107, 0.2);
             color: #dc3545;
         }
-        
+
         .status-medium {
             background: rgba(254, 202, 87, 0.2);
             color: #fd7e14;
         }
-        
+
         .status-good {
             background: rgba(40, 167, 69, 0.2);
             color: #28a745;
         }
-        
+
         .chart-container {
             position: relative;
             height: 400px;
@@ -546,51 +566,51 @@
             border-radius: 15px;
             padding: 20px;
         }
-        
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
-            
+
             .header {
                 padding: 20px;
             }
-            
+
             .header h1 {
                 font-size: 2rem;
             }
-            
+
             .nav-tabs {
                 justify-content: flex-start;
                 overflow-x: auto;
                 padding-bottom: 10px;
             }
-            
+
             .nav-tab {
                 white-space: nowrap;
                 flex-shrink: 0;
                 padding: 12px 20px;
                 font-size: 14px;
             }
-            
+
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
-            
+
             .stats-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
-            
+
             .stat-value {
                 font-size: 2rem;
             }
-            
+
             .table th,
             .table td {
                 padding: 12px 8px;
                 font-size: 14px;
             }
-            
+
             .modal-content {
                 margin: 10% auto;
                 padding: 25px;
@@ -598,6 +618,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -676,15 +697,20 @@
                     </div>
                     <div id="cartSummary" style="display: none;">
                         <hr style="margin: 25px 0; border: none; height: 1px; background: rgba(0,0,0,0.1);">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.1rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.1rem;">
                             <strong>ยอดรวม:</strong>
                             <strong id="cartTotal" style="color: #28a745;">฿0</strong>
                         </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 1.1rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 1.1rem;">
                             <strong>กำไร:</strong>
                             <strong style="color: #007bff;" id="cartProfit">฿0</strong>
                         </div>
-                        <button class="btn btn-success" style="width: 100%; font-size: 1.1rem;" onclick="processSale()">
+
+                        <!-- ✅ ปุ่มบันทึกการขายพร้อมการยืนยัน -->
+                        <button class="btn btn-success" style="width: 100%; font-size: 1.1rem;"
+                            onclick="confirmPaymentBeforeSale()">
                             💳 บันทึกการขาย
                         </button>
                     </div>
@@ -697,57 +723,109 @@
             </div>
         </div>
 
-        <!-- Products Tab -->
-        <div id="products" class="tab-content">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
-                    <h3 style="font-size: 1.5rem;">📦 จัดการสินค้า</h3>
-                    <button class="btn btn-primary" onclick="showAddProductModal()">➕ เพิ่มสินค้าใหม่</button>
+        <!-- ✅ SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- ✅ JavaScript -->
+        <script>
+            function confirmPaymentBeforeSale() {
+                Swal.fire({
+                    title: 'ยืนยันการโอนเงิน?',
+                    text: "คุณแน่ใจหรือไม่ว่าลูกค้าได้โอนเงินแล้ว?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'ยืนยัน',
+                    cancelButtonText: 'ยกเลิก',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        processSale();
+                    }
+                });
+            }
+
+            function processSale() {
+                // ตัวอย่างการบันทึกการขาย
+                // คุณสามารถเพิ่มโค้ดจริงสำหรับบันทึกลง database ได้ที่นี่
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'บันทึกสำเร็จ',
+                    text: 'การขายถูกบันทึกเรียบร้อยแล้ว',
+                    confirmButtonText: 'ตกลง'
+                });
+
+                // ✅ ตัวอย่าง: ล้างตะกร้า
+                document.getElementById("cartItems").innerHTML = `
+            <div class="empty-state">
+                <div class="icon">🛒</div>
+                <p>ไม่มีสินค้าในตะกร้า</p>
+            </div>`;
+                document.getElementById("cartSummary").style.display = "none";
+                document.getElementById("cartTotal").innerText = "฿0";
+                document.getElementById("cartProfit").innerText = "฿0";
+
+                // ✅ TODO: เพิ่มโค้ดอัปเดต recentSales หรือบันทึกลงฐานข้อมูลที่นี่
+            }
+        </script>
+
+
+
+    </div>
+
+    <!-- Products Tab -->
+    <div id="products" class="tab-content">
+        <div class="card">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                <h3 style="font-size: 1.5rem;">📦 จัดการสินค้า</h3>
+                <button class="btn btn-primary" onclick="showAddProductModal()">➕ เพิ่มสินค้าใหม่</button>
+            </div>
+            <div class="table-container" id="productsTable"></div>
+        </div>
+    </div>
+
+    <!-- Materials Tab -->
+    <div id="materials" class="tab-content">
+        <div class="card">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                <h3 style="font-size: 1.5rem;">🥤 จัดการวัตถุดิบ</h3>
+                <button class="btn btn-primary" onclick="showAddMaterialModal()">➕ เพิ่มวัตถุดิบใหม่</button>
+            </div>
+            <div class="table-container" id="materialsTable"></div>
+        </div>
+    </div>
+
+    <!-- Reports Tab -->
+    <div id="reports" class="tab-content">
+        <div class="card">
+            <h3 style="margin-bottom: 25px; font-size: 1.5rem;">📊 รายงานสรุปผล</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">💰 รายได้รวมทั้งหมด</div>
+                    <div class="stat-value" id="totalRevenue">฿0</div>
                 </div>
-                <div class="table-container" id="productsTable"></div>
+                <div class="stat-card">
+                    <div class="stat-label">📈 กำไรรวมทั้งหมด</div>
+                    <div class="stat-value" id="totalProfit">฿0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">🥤 แก้วที่ขายทั้งหมด</div>
+                    <div class="stat-value" id="totalQuantity">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">📊 อัตรากำไร</div>
+                    <div class="stat-value" id="profitMargin">0%</div>
+                </div>
             </div>
         </div>
 
-        <!-- Materials Tab -->
-        <div id="materials" class="tab-content">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
-                    <h3 style="font-size: 1.5rem;">🥤 จัดการวัตถุดิบ</h3>
-                    <button class="btn btn-primary" onclick="showAddMaterialModal()">➕ เพิ่มวัตถุดิบใหม่</button>
-                </div>
-                <div class="table-container" id="materialsTable"></div>
-            </div>
+        <div class="card">
+            <h3 style="margin-bottom: 25px; font-size: 1.5rem;">📈 รายงานสินค้า</h3>
+            <div class="table-container" id="productReports"></div>
         </div>
-
-        <!-- Reports Tab -->
-        <div id="reports" class="tab-content">
-            <div class="card">
-                <h3 style="margin-bottom: 25px; font-size: 1.5rem;">📊 รายงานสรุปผล</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">💰 รายได้รวมทั้งหมด</div>
-                        <div class="stat-value" id="totalRevenue">฿0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">📈 กำไรรวมทั้งหมด</div>
-                        <div class="stat-value" id="totalProfit">฿0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">🥤 แก้วที่ขายทั้งหมด</div>
-                        <div class="stat-value" id="totalQuantity">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">📊 อัตรากำไร</div>
-                        <div class="stat-value" id="profitMargin">0%</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3 style="margin-bottom: 25px; font-size: 1.5rem;">📈 รายงานสินค้า</h3>
-                <div class="table-container" id="productReports"></div>
-            </div>
-        </div>
+    </div>
     </div>
 
     <!-- Add Product Modal -->
@@ -774,14 +852,19 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">หมวดหมู่:</label>
-                    <input type="text" class="form-input" name="category" required placeholder="เช่น ชา, กาแฟ, น้ำผลไม้">
+                    <input type="text" class="form-input" name="category" required
+                        placeholder="เช่น ชา, กาแฟ, น้ำผลไม้">
                 </div>
+
+
+
                 <button type="submit" class="btn btn-success" style="width: 100%; font-size: 1.1rem;">
                     💾 บันทึกสินค้า
                 </button>
             </form>
         </div>
     </div>
+
 
     <!-- Add Material Modal -->
     <div id="addMaterialModal" class="modal">
@@ -853,7 +936,7 @@
     <script>
         // Google Sheets Configuration
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1H83uZSGkKSe5vNeRufTx8DC4U_t4a0qJIFG27e4vnEM/edit?gid=0#gid=0';
-        
+
         // Sample data
         let products = [
             { id: 1, name: 'ชาไทย', price: 25, cost: 12, stock: 50, category: 'ชา' },
@@ -879,7 +962,7 @@
         let cart = [];
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateCurrentDate();
             loadData();
             updateDashboard();
@@ -892,9 +975,9 @@
 
         function updateCurrentDate() {
             const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
+            const options = {
+                year: 'numeric',
+                month: 'long',
                 day: 'numeric',
                 weekday: 'long'
             };
@@ -906,18 +989,18 @@
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Remove active class from all nav tabs
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Show selected tab
             document.getElementById(tabName).classList.add('active');
-            
+
             // Add active class to clicked nav tab
             event.target.classList.add('active');
-            
+
             // Update data when switching tabs
             if (tabName === 'dashboard') {
                 updateDashboard();
@@ -931,7 +1014,7 @@
                 // ในการใช้งานจริง จะต้องสร้าง Google Apps Script Web App
                 // และใช้ URL ของ Web App ที่สร้างขึ้น
                 console.log('บันทึกข้อมูลไปยัง Google Sheets:', saleData);
-                
+
                 // สำหรับการใช้งานจริง ให้แทนที่ด้วย URL ของ Google Apps Script
                 // const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
                 //     method: 'POST',
@@ -943,9 +1026,9 @@
                 //         data: saleData
                 //     })
                 // });
-                
+
                 // return response.ok;
-                
+
                 // ตอนนี้จะ return true เพื่อจำลองการบันทึกสำเร็จ
                 return true;
             } catch (error) {
@@ -959,12 +1042,12 @@
             if (savedSales) {
                 sales = JSON.parse(savedSales);
             }
-            
+
             const savedProducts = localStorage.getItem('beveragePOSProducts');
             if (savedProducts) {
                 products = JSON.parse(savedProducts);
             }
-            
+
             const savedMaterials = localStorage.getItem('beveragePOSMaterials');
             if (savedMaterials) {
                 materials = JSON.parse(savedMaterials);
@@ -979,24 +1062,24 @@
 
         function updateDashboard() {
             const today = new Date().toISOString().split('T')[0];
-            
+
             // คำนวณข้อมูลวันนี้
             const todaySales = sales.filter(sale => sale.date === today);
             const todayRevenue = todaySales.reduce((sum, sale) => sum + (sale.quantity * sale.price), 0);
             const todayProfit = todaySales.reduce((sum, sale) => sum + (sale.quantity * (sale.price - sale.cost)), 0);
             const todayQuantity = todaySales.reduce((sum, sale) => sum + sale.quantity, 0);
-            
+
             // คำนวณข้อมูลเดือนนี้
             const currentMonth = new Date().toISOString().substring(0, 7);
             const monthSales = sales.filter(sale => sale.date.startsWith(currentMonth));
             const monthRevenue = monthSales.reduce((sum, sale) => sum + (sale.quantity * sale.price), 0);
-            
+
             // อัปเดต UI
             document.getElementById('todayRevenue').textContent = '฿' + todayRevenue.toLocaleString();
             document.getElementById('todayProfit').textContent = '฿' + todayProfit.toLocaleString();
             document.getElementById('todayQuantity').textContent = todayQuantity.toLocaleString();
             document.getElementById('monthRevenue').textContent = '฿' + monthRevenue.toLocaleString();
-            
+
             // อัปเดตกราฟและข้อมูลอื่น ๆ
             updateSalesChart();
             updateBestSelling();
@@ -1006,7 +1089,7 @@
         function updateSalesChart() {
             const canvas = document.getElementById('salesChart');
             const ctx = canvas.getContext('2d');
-            
+
             // เตรียมข้อมูลสำหรับกราฟ
             const last7Days = [];
             for (let i = 6; i >= 0; i--) {
@@ -1015,25 +1098,25 @@
                 const dateString = date.toISOString().split('T')[0];
                 last7Days.push(dateString);
             }
-            
+
             const chartData = last7Days.map(date => {
                 const daySales = sales.filter(sale => sale.date === date);
                 const revenue = daySales.reduce((sum, sale) => sum + (sale.quantity * sale.price), 0);
                 const profit = daySales.reduce((sum, sale) => sum + (sale.quantity * (sale.price - sale.cost)), 0);
                 return { date, revenue, profit };
             });
-            
+
             // ลบกราฟเก่าและวาดใหม่
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             // สร้างกราฟแบบง่าย ๆ
             const padding = 50;
             const chartWidth = canvas.width - (padding * 2);
             const chartHeight = canvas.height - (padding * 2);
-            
+
             const maxRevenue = Math.max(...chartData.map(d => d.revenue), 100);
             const stepX = chartWidth / (chartData.length - 1);
-            
+
             // วาดแกน
             ctx.strokeStyle = '#ddd';
             ctx.lineWidth = 1;
@@ -1042,7 +1125,7 @@
             ctx.lineTo(padding, canvas.height - padding);
             ctx.lineTo(canvas.width - padding, canvas.height - padding);
             ctx.stroke();
-            
+
             // วาดเส้นรายได้
             ctx.strokeStyle = '#667eea';
             ctx.lineWidth = 3;
@@ -1057,7 +1140,7 @@
                 }
             });
             ctx.stroke();
-            
+
             // วาดเส้นกำไร
             ctx.strokeStyle = '#28a745';
             ctx.lineWidth = 3;
@@ -1072,25 +1155,25 @@
                 }
             });
             ctx.stroke();
-            
+
             // วาดจุด
             chartData.forEach((data, index) => {
                 const x = padding + (index * stepX);
-                
+
                 // จุดรายได้
                 const yRevenue = canvas.height - padding - ((data.revenue / maxRevenue) * chartHeight);
                 ctx.fillStyle = '#667eea';
                 ctx.beginPath();
                 ctx.arc(x, yRevenue, 4, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // จุดกำไร
                 const yProfit = canvas.height - padding - ((data.profit / maxRevenue) * chartHeight);
                 ctx.fillStyle = '#28a745';
                 ctx.beginPath();
                 ctx.arc(x, yProfit, 4, 0, 2 * Math.PI);
                 ctx.fill();
-                
+
                 // ป้ายกำกับวันที่
                 ctx.fillStyle = '#666';
                 ctx.font = '12px Arial';
@@ -1098,7 +1181,7 @@
                 const dateLabel = new Date(data.date).getDate() + '/' + (new Date(data.date).getMonth() + 1);
                 ctx.fillText(dateLabel, x, canvas.height - padding + 20);
             });
-            
+
             // เคียว legend
             ctx.fillStyle = '#667eea';
             ctx.fillRect(padding, 20, 15, 15);
@@ -1106,7 +1189,7 @@
             ctx.font = '14px Arial';
             ctx.textAlign = 'left';
             ctx.fillText('รายได้', padding + 25, 32);
-            
+
             ctx.fillStyle = '#28a745';
             ctx.fillRect(padding + 100, 20, 15, 15);
             ctx.fillText('กำไร', padding + 125, 32);
@@ -1120,13 +1203,13 @@
                 }
                 productSales[sale.productName] += sale.quantity;
             });
-            
+
             const bestSelling = Object.entries(productSales)
                 .map(([name, quantity]) => ({ name, quantity }))
                 .sort((a, b) => b.quantity - a.quantity)
                 .slice(0, 5);
-            
-            const html = bestSelling.length > 0 ? 
+
+            const html = bestSelling.length > 0 ?
                 bestSelling.map((item, index) => {
                     const product = products.find(p => p.name === item.name);
                     const profit = product ? (product.price - product.cost) * item.quantity : 0;
@@ -1143,7 +1226,7 @@
                     `;
                 }).join('') :
                 '<div class="empty-state"><div class="icon">📊</div><p>ยังไม่มีข้อมูลการขาย</p></div>';
-            
+
             document.getElementById('bestSelling').innerHTML = html;
         }
 
@@ -1151,7 +1234,7 @@
             const lowStockMaterials = materials.filter(m => m.stock <= m.minStock);
             const alertDiv = document.getElementById('lowStockAlert');
             const listDiv = document.getElementById('lowStockList');
-            
+
             if (lowStockMaterials.length > 0) {
                 alertDiv.style.display = 'block';
                 const html = lowStockMaterials.map(material => `
@@ -1192,14 +1275,14 @@
                     </div>
                 `;
             }).join('');
-            
+
             document.getElementById('productsList').innerHTML = html;
         }
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             if (!product || product.stock === 0) return;
-            
+
             const existingItem = cart.find(item => item.id === productId);
             if (existingItem) {
                 if (existingItem.quantity < product.stock) {
@@ -1211,18 +1294,18 @@
             } else {
                 cart.push({ ...product, quantity: 1 });
             }
-            
+
             updateCartDisplay();
         }
 
         function updateCartQuantity(productId, change) {
             const item = cart.find(item => item.id === productId);
             const product = products.find(p => p.id === productId);
-            
+
             if (!item || !product) return;
-            
+
             const newQuantity = item.quantity + change;
-            
+
             if (newQuantity <= 0) {
                 cart = cart.filter(item => item.id !== productId);
             } else if (newQuantity <= product.stock) {
@@ -1231,7 +1314,7 @@
                 showAlert('สต็อกไม่เพียงพอ!', 'error');
                 return;
             }
-            
+
             updateCartDisplay();
         }
 
@@ -1243,7 +1326,7 @@
         function updateCartDisplay() {
             const cartContainer = document.getElementById('cartItems');
             const cartSummary = document.getElementById('cartSummary');
-            
+
             if (cart.length === 0) {
                 cartContainer.innerHTML = `
                     <div class="empty-state">
@@ -1254,7 +1337,7 @@
                 cartSummary.style.display = 'none';
                 return;
             }
-            
+
             const html = cart.map(item => `
                 <div class="cart-item">
                     <div>
@@ -1271,12 +1354,12 @@
                     </div>
                 </div>
             `).join('');
-            
+
             cartContainer.innerHTML = html;
-            
+
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const profit = cart.reduce((sum, item) => sum + ((item.price - item.cost) * item.quantity), 0);
-            
+
             document.getElementById('cartTotal').textContent = '฿' + total.toLocaleString();
             document.getElementById('cartProfit').textContent = '฿' + profit.toLocaleString();
             cartSummary.style.display = 'block';
@@ -1287,10 +1370,10 @@
                 showAlert('ไม่มีสินค้าในตะกร้า', 'error');
                 return;
             }
-            
+
             const today = new Date().toISOString().split('T')[0];
             const timestamp = new Date().toISOString();
-            
+
             // เตรียมข้อมูลสำหรับบันทึก
             const saleData = cart.map((item, index) => ({
                 id: Date.now() + index,
@@ -1304,21 +1387,21 @@
                 revenue: item.price * item.quantity,
                 profit: (item.price - item.cost) * item.quantity
             }));
-            
+
             try {
                 // แสดง loading
                 const button = event.target;
                 const originalText = button.innerHTML;
                 button.innerHTML = '<span class="loading"></span> กำลังบันทึก...';
                 button.disabled = true;
-                
+
                 // บันทึกลง Google Sheets
                 const success = await saveToGoogleSheets(saleData);
-                
+
                 if (success) {
                     // บันทึกใน localStorage (สำรอง)
                     sales.push(...saleData);
-                    
+
                     // อัปเดตสต็อกสินค้า
                     cart.forEach(cartItem => {
                         const product = products.find(p => p.id === cartItem.id);
@@ -1326,31 +1409,31 @@
                             product.stock -= cartItem.quantity;
                         }
                     });
-                    
+
                     saveData();
-                    
+
                     // ล้างตะกร้า
                     cart = [];
                     updateCartDisplay();
-                    
+
                     // อัปเดต UI
                     renderProducts();
                     updateDashboard();
                     updateRecentSales();
-                    
+
                     showAlert('✅ บันทึกการขายเรียบร้อย! ข้อมูลได้ถูกบันทึกไปยัง Google Sheets แล้ว', 'success');
                 } else {
                     throw new Error('ไม่สามารถบันทึกไปยัง Google Sheets ได้');
                 }
-                
+
                 // คืนค่าปุ่ม
                 button.innerHTML = originalText;
                 button.disabled = false;
-                
+
             } catch (error) {
                 console.error('Error processing sale:', error);
                 showAlert('❌ เกิดข้อผิดพลาดในการบันทึกการขาย กรุณาลองใหม่อีกครั้ง', 'error');
-                
+
                 // คืนค่าปุ่ม
                 const button = event.target;
                 button.innerHTML = '💳 บันทึกการขาย';
@@ -1361,7 +1444,7 @@
         function updateRecentSales() {
             const recent = sales.slice(-10).reverse();
             const container = document.getElementById('recentSales');
-            
+
             if (recent.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
@@ -1371,7 +1454,7 @@
                 `;
                 return;
             }
-            
+
             const html = `
                 <div class="table-container">
                     <table class="table">
@@ -1400,7 +1483,7 @@
                     </table>
                 </div>
             `;
-            
+
             container.innerHTML = html;
         }
 
@@ -1420,8 +1503,8 @@
                     </thead>
                     <tbody>
                         ${products.map(product => {
-                            const stockStatus = product.stock <= 10 ? 'status-low' : product.stock <= 20 ? 'status-medium' : 'status-good';
-                            return `
+                const stockStatus = product.stock <= 10 ? 'status-low' : product.stock <= 20 ? 'status-medium' : 'status-good';
+                return `
                                 <tr>
                                     <td style="font-weight: 600;">${product.name}</td>
                                     <td>${product.category}</td>
@@ -1443,11 +1526,11 @@
                                     </td>
                                 </tr>
                             `;
-                        }).join('')}
+            }).join('')}
                     </tbody>
                 </table>
             `;
-            
+
             document.getElementById('productsTable').innerHTML = html;
         }
 
@@ -1467,8 +1550,8 @@
                     </thead>
                     <tbody>
                         ${materials.map(material => {
-                            const isLow = material.stock <= material.minStock;
-                            return `
+                const isLow = material.stock <= material.minStock;
+                return `
                                 <tr>
                                     <td style="font-weight: 600;">${material.name}</td>
                                     <td>${material.unit}</td>
@@ -1493,11 +1576,11 @@
                                     </td>
                                 </tr>
                             `;
-                        }).join('')}
+            }).join('')}
                     </tbody>
                 </table>
             `;
-            
+
             document.getElementById('materialsTable').innerHTML = html;
         }
 
@@ -1506,18 +1589,18 @@
             const totalProfit = sales.reduce((sum, sale) => sum + (sale.quantity * (sale.price - sale.cost)), 0);
             const totalQuantity = sales.reduce((sum, sale) => sum + sale.quantity, 0);
             const profitMargin = totalRevenue > 0 ? ((totalProfit / totalRevenue) * 100).toFixed(1) : 0;
-            
+
             document.getElementById('totalRevenue').textContent = '฿' + totalRevenue.toLocaleString();
             document.getElementById('totalProfit').textContent = '฿' + totalProfit.toLocaleString();
             document.getElementById('totalQuantity').textContent = totalQuantity.toLocaleString();
             document.getElementById('profitMargin').textContent = profitMargin + '%';
-            
+
             updateProductReports();
         }
 
         function updateProductReports() {
             const productStats = {};
-            
+
             // คำนวณสถิติของแต่ละสินค้า
             sales.forEach(sale => {
                 if (!productStats[sale.productName]) {
@@ -1532,10 +1615,10 @@
                 productStats[sale.productName].totalRevenue += sale.quantity * sale.price;
                 productStats[sale.productName].totalProfit += sale.quantity * (sale.price - sale.cost);
             });
-            
+
             const productReportData = Object.values(productStats)
                 .sort((a, b) => b.totalRevenue - a.totalRevenue);
-            
+
             if (productReportData.length === 0) {
                 document.getElementById('productReports').innerHTML = `
                     <div class="empty-state">
@@ -1545,7 +1628,7 @@
                 `;
                 return;
             }
-            
+
             const html = `
                 <table class="table">
                     <thead>
@@ -1559,8 +1642,8 @@
                     </thead>
                     <tbody>
                         ${productReportData.map(product => {
-                            const profitRate = product.totalRevenue > 0 ? ((product.totalProfit / product.totalRevenue) * 100).toFixed(1) : 0;
-                            return `
+                const profitRate = product.totalRevenue > 0 ? ((product.totalProfit / product.totalRevenue) * 100).toFixed(1) : 0;
+                return `
                                 <tr>
                                     <td style="font-weight: 600;">${product.name}</td>
                                     <td style="text-align: center; font-weight: 600;">${product.totalQuantity}</td>
@@ -1569,11 +1652,11 @@
                                     <td style="text-align: right; font-weight: 600;">${profitRate}%</td>
                                 </tr>
                             `;
-                        }).join('')}
+            }).join('')}
                     </tbody>
                 </table>
             `;
-            
+
             document.getElementById('productReports').innerHTML = html;
         }
 
@@ -1601,7 +1684,7 @@
                 stock: parseInt(formData.get('stock')),
                 category: formData.get('category')
             };
-            
+
             products.push(newProduct);
             saveData();
             renderProducts();
@@ -1622,7 +1705,7 @@
                 cost: parseFloat(formData.get('cost')),
                 minStock: parseInt(formData.get('minStock'))
             };
-            
+
             materials.push(newMaterial);
             saveData();
             renderMaterialsTable();
@@ -1635,7 +1718,7 @@
         function editProduct(id) {
             const product = products.find(p => p.id === id);
             if (!product) return;
-            
+
             const form = document.getElementById('editProductForm');
             form.elements.id.value = product.id;
             form.elements.name.value = product.name;
@@ -1643,7 +1726,7 @@
             form.elements.cost.value = product.cost;
             form.elements.stock.value = product.stock;
             form.elements.category.value = product.category;
-            
+
             document.getElementById('editProductModal').style.display = 'block';
         }
 
@@ -1651,10 +1734,10 @@
             event.preventDefault();
             const formData = new FormData(event.target);
             const id = parseInt(formData.get('id'));
-            
+
             const productIndex = products.findIndex(p => p.id === id);
             if (productIndex === -1) return;
-            
+
             products[productIndex] = {
                 id: id,
                 name: formData.get('name'),
@@ -1663,7 +1746,7 @@
                 stock: parseInt(formData.get('stock')),
                 category: formData.get('category')
             };
-            
+
             saveData();
             renderProducts();
             renderProductsTable();
@@ -1710,7 +1793,7 @@
         function editMaterial(id) {
             const material = materials.find(m => m.id === id);
             if (!material) return;
-            
+
             const newStock = prompt(`แก้ไขจำนวนสต็อก ${material.name} (ปัจจุบัน: ${material.stock} ${material.unit}):`, material.stock);
             if (newStock && !isNaN(newStock) && parseInt(newStock) >= 0) {
                 material.stock = parseInt(newStock);
@@ -1733,9 +1816,9 @@
             alertDiv.style.maxWidth = '500px';
             alertDiv.style.boxShadow = '0 15px 35px rgba(0,0,0,0.2)';
             alertDiv.style.animation = 'slideInRight 0.3s ease';
-            
+
             document.body.appendChild(alertDiv);
-            
+
             setTimeout(() => {
                 alertDiv.style.animation = 'slideOutRight 0.3s ease';
                 setTimeout(() => {
@@ -1747,7 +1830,7 @@
         }
 
         // Close modals when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
                 if (event.target === modal) {
@@ -1757,10 +1840,10 @@
         }
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             // Alt + 1-5 for tab switching
             if (event.altKey) {
-                switch(event.key) {
+                switch (event.key) {
                     case '1':
                         event.preventDefault();
                         document.querySelector('[onclick="showTab(\'dashboard\')"]').click();
@@ -1783,7 +1866,7 @@
                         break;
                 }
             }
-            
+
             // Escape key to close modals
             if (event.key === 'Escape') {
                 document.querySelectorAll('.modal').forEach(modal => {
@@ -1812,6 +1895,7 @@
             updateRecentSales();
         }, 100);
     </script>
+
 </body>
+
 </html>
-        

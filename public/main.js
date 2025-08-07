@@ -1,22 +1,26 @@
 // main.js
 
 // Function to send data to Google Sheets using Apps Script URL
+// ปรับฟังก์ชัน saveToGoogleSheets ให้คืนค่า Promise<boolean>
 function saveToGoogleSheets(data) {
-    fetch('https://script.google.com/macros/s/AKfycbyUANiBO8y25Pgp0ZV2g4DKJuUAkMLvAzyzeNg6ShnApu-7-bz3NzwP2ils-WcxwKRT/exec', {
+    return fetch('https://script.google.com/macros/s/AKfycbyUANiBO8y25Pgp0ZV2g4DKJuUAkMLvAzyzeNg6ShnApu-7-bz3NzwP2ils-WcxwKRT/exec', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
-    .then(result => {
-        console.log('Success:', result);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            return true;  // คืนค่า true เมื่อสำเร็จ
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            return false; // คืนค่า false เมื่อเกิดข้อผิดพลาด
+        });
 }
+
 
 // Google Sheets Configuration
 const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1H83uZSGkKSe5vNeRufTx8DC4U_t4a0qJIFG27e4vnEM/edit?gid=0#gid=0';
@@ -48,12 +52,18 @@ let cart = [];
 // Initialize
 // ...ย้ายฟังก์ชันทั้งหมดจาก index.html มาวางตรงนี้...
 
-async function processSale() {
-    console.log('processSale called'); // debug
+async function processSale(event) {
+    console.log('processSale called');
     if (cart.length === 0) {
         showAlert('ไม่มีสินค้าในตะกร้า', 'error');
         return;
     }
+    const button = event.target;
+    const originalText = button.innerHTML;
+
+    button.innerHTML = '<span class="loading"></span> กำลังบันทึก...';
+    button.disabled = true;
+
     const today = new Date().toISOString().split('T')[0];
     const timestamp = new Date().toISOString();
     const saleData = cart.map((item, index) => ({
@@ -68,15 +78,12 @@ async function processSale() {
         revenue: item.price * item.quantity,
         profit: (item.price - item.cost) * item.quantity
     }));
+
     try {
-        const button = event.target;
-        const originalText = button.innerHTML;
-        button.innerHTML = '<span class="loading"></span> กำลังบันทึก...';
-        button.disabled = true;
         const success = await saveToGoogleSheets(saleData);
         if (success) {
             sales.push(...saleData);
-            console.log('sales after push:', sales); // debug
+            console.log('sales after push:', sales);
             cart.forEach(cartItem => {
                 const product = products.find(p => p.id === cartItem.id);
                 if (product) {
@@ -93,13 +100,11 @@ async function processSale() {
         } else {
             throw new Error('ไม่สามารถบันทึกไปยัง Google Sheets ได้');
         }
-        button.innerHTML = originalText;
-        button.disabled = false;
     } catch (error) {
         console.error('Error processing sale:', error);
         showAlert('❌ เกิดข้อผิดพลาดในการบันทึกการขาย กรุณาลองใหม่อีกครั้ง', 'error');
-        const button = event.target;
-        button.innerHTML = '💳 บันทึกการขาย';
+    } finally {
+        button.innerHTML = originalText;
         button.disabled = false;
     }
 }
@@ -127,6 +132,10 @@ function renderProducts() {
         const stockStatus = product.stock <= 10 ? 'status-low' : product.stock <= 20 ? 'status-medium' : 'status-good';
         return `
             <div class="product-card">
+                <div class="product-image" style="text-align:center; margin-bottom:10px;">
+                    ${product.image ? `<img src="${product.image}" alt="${product.name}" style="max-width:100%; max-height:150px; border-radius:8px;">`
+                : '<div style="width:100%; height:150px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999; border-radius:8px;">ไม่มีรูปภาพ</div>'}
+                </div>
                 <div class="product-name">${product.name}</div>
                 <div class="product-category">${product.category}</div>
                 <div class="product-price">฿${product.price.toLocaleString()}</div>
@@ -144,6 +153,63 @@ function renderProducts() {
     }).join('');
     document.getElementById('productsList').innerHTML = html;
 }
+
+
+function previewProductImage(event) {
+    const preview = document.getElementById('productImagePreview');
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; border-radius: 8px;">`;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.innerHTML = '';
+    }
+}
+
+
+function addProduct(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const name = formData.get('name').trim();
+    const price = parseFloat(formData.get('price'));
+    const cost = parseFloat(formData.get('cost'));
+    const stock = parseInt(formData.get('stock'));
+    const category = formData.get('category').trim();
+    const imageInput = document.getElementById('productImageInput');
+    const file = imageInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const imageBase64 = e.target.result;
+            saveProduct(name, price, cost, stock, category, imageBase64);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        saveProduct(name, price, cost, stock, category, null);
+    }
+}
+
+
+function saveProduct(name, price, cost, stock, category, image) {
+    const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+    const newProduct = { id: newId, name, price, cost, stock, category, image };
+    products.push(newProduct);
+    saveData();
+    console.log('Added product:', newProduct);  // <-- เช็คตรงนี้
+    renderProducts();
+    renderProductsTable();
+    closeModal('addProductModal');
+    showAlert('✅ เพิ่มสินค้าเรียบร้อย', 'success');
+}
+
+
+
 function renderProductsTable() {
     const html = `
         <table class="table">
@@ -160,8 +226,8 @@ function renderProductsTable() {
             </thead>
             <tbody>
                 ${products.map(product => {
-                    const stockStatus = product.stock <= 10 ? 'status-low' : product.stock <= 20 ? 'status-medium' : 'status-good';
-                    return `
+        const stockStatus = product.stock <= 10 ? 'status-low' : product.stock <= 20 ? 'status-medium' : 'status-good';
+        return `
                         <tr>
                             <td style="font-weight: 600;">${product.name}</td>
                             <td>${product.category}</td>
@@ -177,7 +243,7 @@ function renderProductsTable() {
                             </td>
                         </tr>
                     `;
-                }).join('')}
+    }).join('')}
             </tbody>
         </table>
     `;
@@ -199,8 +265,8 @@ function renderMaterialsTable() {
             </thead>
             <tbody>
                 ${materials.map(material => {
-                    const isLow = material.stock <= material.minStock;
-                    return `
+        const isLow = material.stock <= material.minStock;
+        return `
                         <tr>
                             <td style="font-weight: 600;">${material.name}</td>
                             <td>${material.unit}</td>
@@ -217,7 +283,7 @@ function renderMaterialsTable() {
                             </td>
                         </tr>
                     `;
-                }).join('')}
+    }).join('')}
             </tbody>
         </table>
     `;
@@ -380,7 +446,7 @@ function updateLowStockAlert() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     updateCurrentDate && updateCurrentDate();
     loadData && loadData();
     updateDashboard && updateDashboard();
@@ -390,3 +456,4 @@ document.addEventListener('DOMContentLoaded', function() {
     updateRecentSales && updateRecentSales();
     updateLowStockAlert && updateLowStockAlert();
 });
+
